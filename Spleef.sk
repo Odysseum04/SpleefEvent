@@ -56,4 +56,4 @@ on right click:
 on projectile hit:
 	if projectile is within {spleef.1} to {spleef.2}:
 		if projectile is a snowball:
-			set event-blo
+			set event-block to air
