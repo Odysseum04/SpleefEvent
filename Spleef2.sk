@@ -1,0 +1,55 @@
+options:
+    prefix: &r[VOTRE PREFIX] &7
+    permission-message: {@prefix} Vous n'avez pas la permission de faire cela.
+
+command /spleef <text> [<number>]:
+    permission: admin
+    permission message: {@permission-message}
+    trigger:
+        if arg 1 is "setreg":
+            set {spleef.%arg 2%} to player's location
+            send "Position %arg 2% definie en %{spleef.%arg 2%}%"
+            stop
+        if arg 1 is "stop":
+            loop all players:
+                if loop-player is within {spleef.1} to {spleef.2}:
+                    execute console command "/spawn %player%"
+
+on walking on wool block:
+	if player is within {spleef.1} to {spleef.2}:
+		wait 1 tick
+		set event-block to diamond block
+		stop
+
+on walking on diamond block:
+	if player is within {spleef.1} to {spleef.2}:
+		wait 1 tick
+		set event-block to gold block
+		stop
+
+on walking on gold block:
+	if player is within {spleef.1} to {spleef.2}:
+		wait 1 tick
+		set event-block to redstone block
+		stop
+
+on walking on redstone block:
+	if player is within {spleef.1} to {spleef.2}:
+		wait 1 tick
+		set event-block to coal block
+		wait 100 tick
+		set event-block to air
+		stop
+
+on walking on coal block:
+	if player is within {spleef.1} to {spleef.2}:
+		kill player
+		stop
+on right click:
+	if player is within {spleef.1} to {spleef.2}:
+		if player's tool is a shovel:
+			make player shoot a snowball at speed 0.1
+on projectile hit:
+	if projectile is within {spleef.1} to {spleef.2}:
+		if projectile is a snowball:
+			set event-block to air
